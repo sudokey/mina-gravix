@@ -9,16 +9,11 @@ import { Positions } from '@/pages/TradePage/components/Positions'
 
 export const TradePage = () => (
     <div className={styles.root}>
-        <div className={styles.form}>
-            <Form />
-        </div>
-        <div className={styles.toolbar}>
+        <Form />
+
+        <div className={styles.main}>
             <Toolbar />
-        </div>
-        <div className={styles.chart}>
             <Chart />
-        </div>
-        <div className={styles.positions}>
             <Positions />
         </div>
     </div>

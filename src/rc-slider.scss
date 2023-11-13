@@ -1,0 +1,47 @@
+.rc-slider-rail {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.rc-slider-track {
+    margin-top: 1px;
+    height: 2px;
+    background: $color;
+}
+
+.rc-slider-dot {
+    border: none !important;
+    border-radius: 0;
+    width: 1px;
+    height: 10px;
+    bottom: -3px;
+    background: rgba(255,255,255,0.24) !important;
+}
+
+.rc-slider-handle {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: none;
+    margin-top: -6px;
+    opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
+
+    &:focus-visible {
+        box-shadow: 0 0 0 3px $color !important;
+    }
+}
+
+.rc-slider-mark-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.24);
+}
+
+.rc-slider-with-marks {
+    padding-bottom: 26px;
+}
+
+.rc-slider-disabled {
+    background: none;
+    cursor: not-allowed;
+}

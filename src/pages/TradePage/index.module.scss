@@ -5,7 +5,8 @@
     gap: 16px;
 }
 
-.form {
-    grid-row-start: 1;
-    grid-row-end: 4;
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
