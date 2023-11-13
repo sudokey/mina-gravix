@@ -20,6 +20,15 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                     'sass-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            hoistUseStatements: true,
+                            resources: [
+                                path.resolve(__dirname, 'src/vars.scss'),
+                            ],
+                        },
+                    },
                 ],
             },
         ],
@@ -49,6 +58,7 @@ module.exports = {
         hot: false,
         liveReload: false,
         client: false,
+        historyApiFallback: true,
     },
 
     plugins: [

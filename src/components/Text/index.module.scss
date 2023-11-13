@@ -1,0 +1,15 @@
+.root {
+    &.l {
+        font-size: 18px;
+    }
+
+    &.m {
+        font-size: 14px;
+        letter-spacing: 0.2px;
+    }
+
+    &.s {
+        font-size: 12px;
+        letter-spacing: 0.2px;
+    }
+}
