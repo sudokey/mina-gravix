@@ -9,7 +9,7 @@ import {
 
 import { Header } from '@/components/Header'
 import { routes } from '@/routes'
-import { HomePage } from '@/pages/HomePage'
+import { TradePage } from '@/pages/TradePage'
 
 export const App = () => (
     <BrowserRouter>
@@ -19,7 +19,7 @@ export const App = () => (
                 <Redirect to={generatePath(routes.trade)} />
             </Route>
             <Route exact path={routes.trade}>
-                <HomePage />
+                <TradePage />
             </Route>
         </Switch>
     </BrowserRouter>

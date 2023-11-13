@@ -1,0 +1,11 @@
+.root {
+    padding: 16px 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 350px) minmax(0, 1fr);
+    gap: 16px;
+}
+
+.form {
+    grid-row-start: 1;
+    grid-row-end: 4;
+}

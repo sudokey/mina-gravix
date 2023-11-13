@@ -1,0 +1,67 @@
+.root {
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hField {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.vField {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sInput {
+    width: 100px;
+}
+
+.line {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.info {
+    padding: 16px 16px 0;
+}
+
+.type {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    border-radius: 6px;
+    padding: 2px;
+
+    &.long {
+        background: rgba($green, 0.2);
+
+        button:first-child {
+            background: $green;
+        }
+    }
+
+    &.short {
+        background: rgba($red, 0.2);
+
+        button:last-child {
+            background: $red;
+        }
+    }
+
+    button {
+        flex-grow: 1;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 10px 0;
+        border-radius: 4px;
+    }
+}

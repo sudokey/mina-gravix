@@ -1,11 +1,15 @@
 @import "../node_modules/normalize.css/normalize.css";
 
 body {
-    font-family: "SF Pro Display", Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     background: darken($color, 63);
     color: #fff;
+}
+
+input,
+body {
+    font-family: "SF Pro Display", Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -27,5 +31,23 @@ button {
 
     &:disabled {
         cursor: not-allowed;
+    }
+}
+
+dl {
+    display: grid;
+    grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+    grid-gap: 8px;
+    margin: 0;
+    font-size: 12px;
+
+    dt {
+        color: rgba(#fff,0.5);
+    }
+
+    dd {
+        margin: 0;
+        text-align: right;
+        word-break: break-word;
     }
 }
