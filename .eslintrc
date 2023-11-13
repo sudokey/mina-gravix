@@ -1,0 +1,86 @@
+{
+    "extends": [
+        "airbnb",
+        "airbnb/hooks",
+        "airbnb-typescript",
+        "plugin:editorconfig/all"
+    ],
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "editorconfig",
+        "unused-imports"
+    ],
+    "rules": {
+        "no-bitwise": "off",
+        "semi": [
+            2,
+            "never"
+        ],
+        "@typescript-eslint/semi": [
+            2,
+            "never"
+        ],
+        "react/jsx-indent": [
+            2,
+            4
+        ],
+        "react/jsx-indent-props": [
+            2,
+            4
+        ],
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function"
+            }
+        ],
+        "import/prefer-default-export": [
+            0
+        ],
+        "react/require-default-props": [
+            0
+        ],
+        "arrow-parens": [
+            0
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "parent",
+                    "internal",
+                    "sibling",
+                    "index",
+                    "object",
+                    "type"
+                ],
+                "newlines-between": "always"
+            }
+        ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "": "never"
+            }
+        ],
+        "react/jsx-props-no-spreading": [
+            0
+        ],
+        "@typescript-eslint/brace-style": [
+            "warn",
+            "stroustrup",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "unused-imports/no-unused-imports-ts": "error",
+        "react/destructuring-assignment": [
+            0
+        ]
+    }
+}
