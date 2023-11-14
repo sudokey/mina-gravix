@@ -3,6 +3,7 @@ import * as React from 'react'
 import styles from './index.module.scss'
 
 import { Text } from '@/components/Text'
+import { Item } from '@/pages/TradePage/components/Positions/Item'
 
 export const Positions = () => (
     <div className={styles.root}>
@@ -48,15 +49,19 @@ export const Positions = () => (
                         Liq. price
                     </Text>
                 </div>
-                <div className={styles.cell} />
+                <div className={styles.cell}>
+                    <span className={styles.close} />
+                </div>
             </div>
         </div>
         <div className={styles.body}>
-            <div className={styles.message}>
+            {/* <div className={styles.message}>
                 <Text color="gray">
                     No data
                 </Text>
-            </div>
+            </div> */}
+            <Item />
+            <Item />
         </div>
     </div>
 )

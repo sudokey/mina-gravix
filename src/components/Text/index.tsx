@@ -7,7 +7,7 @@ interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType,
   className?: string,
   size?: 's' | 'm' | 'l' | 'xl',
-  color?: 'gray'
+  color?: 'gray' | 'red' | 'green'
 }
 
 export const Text: React.FC<ComponentProps & React.PropsWithChildren> = ({

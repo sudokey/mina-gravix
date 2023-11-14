@@ -5,7 +5,13 @@
 
 .row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr max-content;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr auto;
+    align-items: center;
+    border-bottom: 1px solid $border;
+
+    &:last-child {
+        border-bottom: none;
+    }
 }
 
 .cell {
@@ -22,4 +28,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.close {
+    width: 24px;
+    display: block;
+
+    svg {
+        display: block;
+    }
+}
+
+.tooltip {
+    max-width: 250px;
+    background: darken($color, 64);
+    padding: 6px 8px;
+    border: 1px solid $border;
+    border-radius: 6px;
+
+    .title {
+        display: block;
+        margin: 0 0 8px;
+    }
+}
+
+.dashed {
+    border-bottom: 1px dashed rgba(#fff, 0.3);
 }
