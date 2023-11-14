@@ -1,5 +1,13 @@
 .root {
+    display: flex;
+    align-items: center;
+    gap: 32px;
     border: 1px solid $border;
     border-radius: 6px;
     padding: 16px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
 }

@@ -1,0 +1,43 @@
+.root {
+    background: darken($color, 64);
+    border: 1px solid $border;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 10px 12px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 140px;
+
+    &.active {
+        .icon {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.icon {
+    transition: transform 0.2s ease;
+}
+
+.list {
+    background: darken($color, 64);
+    border: 1px solid $border;
+    border-radius: 6px;
+}
+
+.item {
+    display: block;
+    border-bottom: 1px solid $border;
+    padding: 10px 12px;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    min-width: 140px;
+
+    &:last-child{
+        border-bottom: none;
+    }
+}
