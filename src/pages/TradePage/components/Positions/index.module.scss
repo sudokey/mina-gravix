@@ -1,5 +1,25 @@
 .root {
     border: 1px solid $border;
     border-radius: 6px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr max-content;
+}
+
+.cell {
     padding: 16px;
+}
+
+.head {
+    color: $gray;
+    border-bottom: 1px solid $border;
+}
+
+.message {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

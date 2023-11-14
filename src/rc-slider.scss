@@ -1,5 +1,5 @@
 .rc-slider-rail {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(#fff, 0.08);
 }
 
 .rc-slider-track {
@@ -14,7 +14,7 @@
     width: 1px;
     height: 10px;
     bottom: -3px;
-    background: rgba(255,255,255,0.24) !important;
+    background: $gray !important;
 }
 
 .rc-slider-handle {
@@ -34,7 +34,7 @@
 
 .rc-slider-mark-text {
     font-size: 12px;
-    color: rgba(255,255,255,0.24);
+    color: $gray;
 }
 
 .rc-slider-with-marks {

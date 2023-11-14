@@ -44,7 +44,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 12px;
-    color: rgba(#fff, 0.5);
+    color: $gray;
 }
 
 .fix {
@@ -53,7 +53,7 @@
     justify-content: center;
     padding: 0 12px;
     background: darken($color, 63);
-    color: rgba(#fff, 0.5);
+    color: $gray;
     font-size: 13px;
     min-width: 30px;
     box-sizing: border-box;
