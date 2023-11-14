@@ -35,7 +35,7 @@ export const Item = () => {
                 <Popover
                     isOpen={netDesc.active}
                     align="start"
-                    positions={['bottom']}
+                    positions={['bottom', 'top']}
                     padding={4}
                     content={(
                         <div className={styles.tooltip}>
@@ -123,7 +123,7 @@ export const Item = () => {
                 <Popover
                     isOpen={collateralDesc.active}
                     align="start"
-                    positions={['bottom']}
+                    positions={['bottom', 'top']}
                     padding={4}
                     content={(
                         <div className={styles.tooltip}>

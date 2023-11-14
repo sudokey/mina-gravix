@@ -10,6 +10,7 @@ import {
 import { Header } from '@/components/Header'
 import { routes } from '@/routes'
 import { TradePage } from '@/pages/TradePage'
+import { EarnPage } from '@/pages/EarnPage'
 
 export const App = () => (
     <BrowserRouter>
@@ -20,6 +21,9 @@ export const App = () => (
             </Route>
             <Route exact path={routes.trade}>
                 <TradePage />
+            </Route>
+            <Route exact path={routes.earn}>
+                <EarnPage />
             </Route>
         </Switch>
     </BrowserRouter>
