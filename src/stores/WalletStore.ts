@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import MinaProvider from '@aurowallet/mina-provider'
 
 type State = {
     accounts: string[]
@@ -11,7 +12,7 @@ const state: State = {
 }
 
 export class WalletStore {
-    static installed = typeof window.mina !== 'undefined'
+    static mina = window.mina as MinaProvider | undefined
 
     protected state = state
 
@@ -27,8 +28,8 @@ export class WalletStore {
     }
 
     async listener() {
-        if (WalletStore.installed) {
-            window.mina.on('accountsChanged', (accounts: string[]) => {
+        if (WalletStore.mina) {
+            WalletStore.mina.on('accountsChanged', (accounts: string[]) => {
                 runInAction(() => {
                     this.state.accounts = accounts
                 })
@@ -39,9 +40,9 @@ export class WalletStore {
     async restore() {
         let accounts: string[] = []
 
-        if (WalletStore.installed) {
+        if (WalletStore.mina) {
             try {
-                accounts = await window.mina?.getAccounts()
+                accounts = await WalletStore.mina.getAccounts()
             }
             catch (e) {
                 console.error(e)
@@ -61,11 +62,20 @@ export class WalletStore {
 
         let account: string[] = []
 
-        try {
-            account = await window.mina.requestAccounts()
-        }
-        catch (e) {
-            console.error(e)
+        if (WalletStore.mina) {
+            try {
+                const result = await WalletStore.mina.requestAccounts()
+
+                if (result instanceof Error) {
+                    throw result
+                }
+                else {
+                    account = result
+                }
+            }
+            catch (e) {
+                console.error(e)
+            }
         }
 
         runInAction(() => {

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aurowallet/mina-provider": "^1.0.0",
     "bignumber.js": "^9.1.2",
     "classnames": "^2.3.2",
     "fp-ts": "^2.16.1",

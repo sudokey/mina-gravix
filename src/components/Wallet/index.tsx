@@ -19,7 +19,7 @@ export const Wallet = observer(() => {
 
     return (
         <div className={styles.root}>
-            {WalletStore.installed ? (
+            {WalletStore.mina ? (
                 wallet.account ? (
                     <Text>
                         {sliceAddress(wallet.account)}
