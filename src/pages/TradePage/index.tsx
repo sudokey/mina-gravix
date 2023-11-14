@@ -4,8 +4,8 @@ import styles from './index.module.scss'
 
 import { Form } from '@/pages/TradePage/components/Form'
 import { Toolbar } from '@/pages/TradePage/components/Toolbar'
-import { Chart } from '@/pages/TradePage/components/Chart'
 import { Positions } from '@/pages/TradePage/components/Positions'
+import { TradingView } from '@/components/TradingView'
 
 export const TradePage = () => (
     <div className={styles.root}>
@@ -13,7 +13,7 @@ export const TradePage = () => (
 
         <div className={styles.main}>
             <Toolbar />
-            <Chart />
+            <TradingView />
             <Positions />
         </div>
     </div>
