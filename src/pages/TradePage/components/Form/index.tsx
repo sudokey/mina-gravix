@@ -199,15 +199,15 @@ export const Form = observer(() => {
 
             <dl className={styles.info}>
                 <dt>Position size</dt>
-                <dd>$11.994</dd>
+                <dd>-</dd>
                 <dt>Fees</dt>
-                <dd>$0.006</dd>
+                <dd>-</dd>
                 <dt>Liq. price</dt>
-                <dd>$3 706</dd>
+                <dd>-</dd>
                 <dt>Borrow fee</dt>
-                <dd>0.002%/h</dd>
+                <dd>-</dd>
                 <dt>Max pnl</dt>
-                <dd>300%</dd>
+                <dd>-</dd>
             </dl>
         </div>
     )

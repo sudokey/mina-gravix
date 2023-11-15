@@ -18,6 +18,8 @@ export class CounterStore {
         makeAutoObservable(this, {}, {
             autoBind: true,
         })
+
+        this.start()
     }
 
     public start(): void {

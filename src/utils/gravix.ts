@@ -1,4 +1,7 @@
+/* eslint-disable max-len */
 import { BigNumber } from 'bignumber.js'
+
+import { decimalAmount } from '@/utils/decimal-amount'
 
 export enum MarketIdx {
     Btc = 1,
@@ -66,3 +69,46 @@ export const decimalLeverage = (value: string | number): string => (
 export const normalizeLeverage = (value: string | number): string => (
     new BigNumber(value).times(1000000).decimalPlaces(0, BigNumber.ROUND_DOWN).toFixed()
 )
+
+export const countSize = (collateral: string, leverage: string) => {
+    const normLeverage = decimalAmount(leverage, 6)
+    return new BigNumber(collateral)
+        .times(normLeverage)
+        .div(10 ** 6)
+        .toFixed(2)
+}
+
+export const calcNetValue = (initialCollateral: string, openFee: string, limitedPnl: string): string => (
+    BigNumber.max(0, new BigNumber(initialCollateral).minus(openFee).plus(limitedPnl)).toFixed()
+)
+
+export const calcNetValueChange = (limitedPnl: string): string => new BigNumber(limitedPnl).toFixed()
+
+export const calcNetValueChangePercent = (collateral: string, netValueChange: string): string => (
+    new BigNumber(netValueChange).times(100).dividedBy(collateral).decimalPlaces(2)
+        .toFixed()
+)
+
+export const calcCollateral = (initialCollateral: string, openFee: string): string => new BigNumber(initialCollateral).minus(openFee).toFixed()
+
+export const calcPnlAfterFees = (limitedPnl: string, openFee: string, initialCollateral: string, closeFee = '0'): string => {
+    const result = new BigNumber(limitedPnl).minus(openFee).minus(closeFee)
+
+    if (result.lt(0)) {
+        return BigNumber.min(initialCollateral, result.abs()).times(-1).toFixed()
+    }
+
+    return result.toFixed()
+}
+
+export const calcPnlAfterFeesPercent = (pnlAfterFees: string, initialCollateral: string): string => (
+    new BigNumber(pnlAfterFees).times(100).dividedBy(initialCollateral).decimalPlaces(2)
+        .toFixed()
+)
+
+export const calcLimitedPnl = (initialCollateral: string, openFee: string, pnl: string, maxPnlRate?: string | null): string => {
+    const collateral = calcCollateral(initialCollateral, openFee)
+    return maxPnlRate
+        ? BigNumber.min(pnl, new BigNumber(collateral).times(maxPnlRate).dividedBy(10 ** 12)).toFixed()
+        : pnl
+}
