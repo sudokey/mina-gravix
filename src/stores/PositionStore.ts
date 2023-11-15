@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { makeAutoObservable, reaction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { BigNumber } from 'bignumber.js'
 
 import {
@@ -37,15 +37,6 @@ export class PositionStore {
                 autoBind: true,
             },
         )
-
-        this.reactions.create(
-            reaction(() => [this.positions.allUserPositions.length], this.init, { fireImmediately: true }),
-        )
-    }
-
-    init() {
-        const foundPos = this.positions.allUserPositions.find(_ => _.id.toString() === this.positionIdx)
-        if (foundPos) this.state.positionView = foundPos
     }
 
     public dispose(): void {
@@ -53,7 +44,7 @@ export class PositionStore {
     }
 
     public get position(): Position | undefined {
-        return this.state.positionView
+        return this.positions.allUserPositions.find(_ => _.id.toString() === this.positionIdx)
     }
 
     public get leverage(): string | undefined {

@@ -1,0 +1,38 @@
+.root {
+    &.muted {
+        &.red {
+            color: rgba($red, 0.72);
+        }
+
+        &.green {
+            color: rgba($green, 0.64);
+        }
+    }
+
+    &.red {
+        color: $red;
+    }
+
+    &.green {
+        color: $green;
+    }
+
+    &.green,
+    &.red {
+        .decimals {
+            opacity: 1;
+        }
+    }
+
+    &.gray {
+        opacity: 0.48;
+
+        .decimals {
+            opacity: 1;
+        }
+    }
+}
+
+.decimals {
+    opacity: 0.48;
+}
