@@ -1,13 +1,19 @@
+/* eslint-disable new-cap */
 /* eslint-disable no-new */
 import React, { useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
 
 import styles from './index.module.scss'
 
 import { mapChartSymbol } from '@/utils/gravix'
+import { useStore } from '@/hooks/useStore'
+import { MarketStore } from '@/stores/MarketStore'
 
 let tvScriptLoadingPromise: Promise<void>
 
-export const TradingView: React.FC = () => {
+export const TradingView: React.FC = observer(() => {
+    const market = useStore(MarketStore)
+
     useEffect(() => {
         if (!tvScriptLoadingPromise) {
             tvScriptLoadingPromise = new Promise(resolve => {
@@ -27,7 +33,7 @@ export const TradingView: React.FC = () => {
             .then(async () => {
                 new (window as any).TradingView.widget({
                     autosize: true,
-                    symbol: mapChartSymbol(1), // TODO: Change 1
+                    symbol: mapChartSymbol(market.marketIdx),
                     interval: 'D',
                     timezone: 'Etc/UTC',
                     theme: 'dark',
@@ -39,7 +45,7 @@ export const TradingView: React.FC = () => {
                 })
             })
             .catch(console.error)
-    }, [])
+    }, [market.marketIdx])
 
     return (
         <div
@@ -47,4 +53,4 @@ export const TradingView: React.FC = () => {
             id="tradingview_06042"
         />
     )
-}
+})
