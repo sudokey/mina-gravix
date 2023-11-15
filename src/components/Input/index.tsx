@@ -9,7 +9,10 @@ import { Text } from '@/components/Text'
 
 export const Input: React.FC<{
     value?: string
+    disabled?: boolean
     onChange?: (value: string) => void
+    onChangeInput?: React.ChangeEventHandler<HTMLInputElement>
+    onBlur?: React.FocusEventHandler<HTMLInputElement>
     postfix?: string
     prefix?: string
     size?: 's' | 'm'
@@ -29,6 +32,7 @@ export const Input: React.FC<{
     ...props
 }) => {
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        props.onChangeInput?.(e)
         props.onChange?.(e.target.value)
     }
 
@@ -60,9 +64,11 @@ export const Input: React.FC<{
                     className={styles.input}
                     onChange={onChange}
                     value={value}
+                    disabled={props.disabled}
                     style={{
                         textAlign: align,
                     }}
+                    onBlur={props.onBlur}
                 />
 
                 {label ? (

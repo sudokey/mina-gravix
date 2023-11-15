@@ -2,17 +2,31 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import Slider from 'rc-slider'
+import { observer } from 'mobx-react-lite'
+import BigNumber from 'bignumber.js'
 
 import styles from './index.module.scss'
 
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Text } from '@/components/Text'
+import { useStore } from '@/hooks/useStore'
+import { DepositStore, DepositType } from '@/stores/DepositStore'
+import { useAmountField } from '@/hooks/useAmountField'
+import { MarketStore } from '@/stores/MarketStore'
+import { PriceStore } from '@/stores/PriceStore'
+import { usdSign } from '@/utils/sign'
+import { mapIdxToTicker } from '@/utils/gravix'
+import { onSubmitFn } from '@/utils/input'
 
-export const Form = () => {
+export const Form = observer(() => {
+    const deposit = useStore(DepositStore)
+    const market = useStore(MarketStore)
+    const price = useStore(PriceStore)
+
     const marks = React.useMemo(
         () => {
-            const maxLeverage = '100'
+            const maxLeverage = market.maxLeverage ?? '100'
             const int = parseInt(maxLeverage, 10)
             let count = 5
             while (int % count !== 0) {
@@ -25,24 +39,85 @@ export const Form = () => {
             }
             return Object.fromEntries(result.map(n => [n, `x${n}`]))
         },
-        [],
+        [market.maxLeverage],
     )
+
+    const onChangeSlider = (value: number | number[]) => {
+        deposit.setLeverage(value.toString())
+    }
+
+    const leverageField = useAmountField({
+        decimals: 2,
+        defaultValue: '1',
+        max: market.maxLeverage,
+        min: '1',
+        onBlur: value => {
+            if (value !== deposit.leverage) {
+                deposit.setLeverage(value)
+            }
+        },
+        onChange: deposit.setLeverage,
+    })
+
+    const collateralField = useAmountField({
+        decimals: 6,
+        onBlur: value => {
+            if (value !== deposit.collateral) {
+                deposit.setCollateral(value)
+            }
+        },
+        onChange: deposit.setCollateral,
+    })
+
+    const positionField = useAmountField({
+        decimals: 6,
+        onBlur: value => {
+            if (value !== deposit.position) {
+                deposit.setPosition(value)
+            }
+        },
+        onChange: deposit.setPosition,
+    })
+
+    const slippageField = useAmountField({
+        decimals: 4,
+        defaultValue: '1',
+        onBlur: deposit.setSlippage,
+        onChange: deposit.setSlippage,
+    })
+
+    const marketPrice = price.price[market.idx]
 
     return (
         <div>
-            <div className={styles.root}>
-                <div className={classNames(styles.type, styles.long)}>
-                    <button type="button">
+            <form onSubmit={onSubmitFn(deposit.submit)} className={styles.root}>
+                <div
+                    className={classNames(styles.type, {
+                        [styles.long]: deposit.depositType === DepositType.Long,
+                        [styles.short]: deposit.depositType === DepositType.Short,
+                    })}
+                >
+                    <button
+                        type="button"
+                        onClick={() => deposit.setType(DepositType.Long)}
+                    >
                         Long
                     </button>
-                    <button type="button">
+                    <button
+                        type="button"
+                        onClick={() => deposit.setType(DepositType.Short)}
+                    >
                         Short
                     </button>
                 </div>
 
                 <Input
-                    hint="0.00000001 BTC"
+                    // hint="0.00000001 BTC"
                     label="USDT"
+                    value={deposit.collateral}
+                    onChangeInput={collateralField.onChange}
+                    onBlur={collateralField.onBlur}
+                    disabled={deposit.loading}
                 />
 
                 <div className={styles.hField}>
@@ -54,21 +129,32 @@ export const Form = () => {
                         size="s"
                         className={styles.sInput}
                         align="right"
+                        value={deposit.leverage}
+                        onChangeInput={leverageField.onChange}
+                        onBlur={leverageField.onBlur}
+                        disabled={deposit.loading}
                     />
                 </div>
 
                 <div className={styles.slider}>
                     <Slider
-                        min={1}
-                        max={100}
-                        marks={marks}
                         tabIndex={-1}
+                        marks={marks}
+                        min={1}
+                        max={market.maxLeverage ? parseFloat(market.maxLeverage) : undefined}
+                        onChange={onChangeSlider}
+                        value={Number(deposit.leverage)}
+                        disabled={deposit.loading || !market.maxLeverage}
                     />
                 </div>
 
                 <Input
-                    hint="Long 0.00000001 BTC"
-                    label="USDT"
+                    // hint="Long 0.00000001 BTC"
+                    // label="USDT"
+                    value={deposit.position}
+                    onChangeInput={positionField.onChange}
+                    onBlur={positionField.onBlur}
+                    disabled={deposit.loading}
                 />
 
                 <div className={styles.hField}>
@@ -80,6 +166,10 @@ export const Form = () => {
                         size="s"
                         className={styles.sInput}
                         align="right"
+                        value={deposit.slippage}
+                        onChangeInput={slippageField.onChange}
+                        onBlur={slippageField.onBlur}
+                        disabled={deposit.loading}
                     />
                 </div>
 
@@ -89,18 +179,23 @@ export const Form = () => {
                     </Text>
                     <div className={styles.line}>
                         <Text size="xl">
-                            $36 859
+                            {marketPrice ? `${usdSign(new BigNumber(marketPrice).toFixed(2))}` : '\u200B'}
                         </Text>
-                        <Text size="s">
+                        {/* <Text size="s">
                             Spread 0.1038%
-                        </Text>
+                        </Text> */}
                     </div>
                 </div>
 
-                <Button block>
-                    Long BTC
+                <Button
+                    disabled={deposit.loading || !deposit.isEnabled}
+                    htmlType="submit"
+                >
+                    {deposit.depositType === DepositType.Long ? 'Long' : 'Short'}
+                    {' '}
+                    {mapIdxToTicker(market.marketIdx).split('/')[0]}
                 </Button>
-            </div>
+            </form>
 
             <dl className={styles.info}>
                 <dt>Position size</dt>
@@ -116,4 +211,4 @@ export const Form = () => {
             </dl>
         </div>
     )
-}
+})
